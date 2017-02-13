@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>About GIT</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/moon.css">
@@ -44,12 +44,11 @@
 				</section>
 
 				<section data-transition="zoom">
-					
-					<h2>NOW YOU SEE IT, NOW YOU DON'T<br>
-						<small>(o deshaciendo con GIT)</small>
-					</h2>
 
 					<section>
+						<h2>NOW YOU SEE IT, NOW YOU DON'T<br>
+							<small>(o deshaciendo con GIT)</small>
+						</h2>
 						<img src="images/2-1.svg" class="white-border">
 
 						La idea detras de GIT es mantener copias "seguras" de un projecto, para no preocuparnos de romper nuestro código. Con <i>git checkout</i> nos movemos de una copia a otra.
@@ -105,15 +104,15 @@
 					</section>
 
 					<section>
-						<img src="images/2-6.jpg" class="noborder">
+						<img src="images/2-6.jpg" class="noborder" width="500">
 					</section>
 
 				</section>
 
 				<section>
-					<h2>Reset</h2>
 
 					<section>
+						<h2>Reset</h2>
 						<img src="images/3-1.svg" class="noborder">
 						<small>Los tres componentes de un repositorio GIT</small>
 						<aside class="notes">It helps to think about each command in terms of their effect on the three main components of a Git repository: the working directory, the staged snapshot, and the commit history.</aside>
@@ -159,9 +158,9 @@
 				</section>
 
 				<section>
-					<h2>rewriting history</h2>
-
+					
 					<section>
+						<h2>rewriting history</h2>
 						<img src="images/4-1.jpg">
 					</section>
 
@@ -432,22 +431,20 @@
 				</section>
 
 				<section>
-					<h2>HOSTING YOUR GIT REPOSITORIES</h2>
 
 					<section>
-
-						Paso 1. Instalar GIT en ambas máquinas:
+						<h2>git en nuestro propio servidor</h2>
+						<p class="text-left">Paso 1. Instalar GIT en ambas máquinas:</p>
 
 						<pre><code data-trim data-noescape>sudo apt-get install git-core</code></pre>
 
-						Paso 2. Agregar usuario y generar llaves SSH (privada y pública).
+						<p class="text-left">Paso 2. Agregar user y generar llaves SSH<br>
+							(privada y pública).</p>
 
-						<pre><code data-trim data-noescape>sudo useradd git<br>
-						passwd git<br>
-						ssh-keygen -t rsa</code></pre>
+						<pre><code data-trim data-noescape>sudo useradd git<br>passwd git<br>ssh-keygen -t rsa</code></pre>
 						
-						Paso 3.
-						Now you have to copy these keys to the server so that the two machines can talk to each other
+						<p class="text-left">Paso 3.
+						Copiamos las claves al server</p>
 
 						<pre><code data-trim data-noescape>cat ~/.ssh/id_rsa.pub | ssh git@remote-server "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"</code></pre>
 
@@ -455,41 +452,35 @@
 
 					<section>
 
-						Paso 4. En la maquina remota (ssh) y crear un directorio para el projecto de git
+						<p class="text-left">Paso 4. En la maquina remota (ssh) y crear un directorio para el projecto de git</p>
 
 						<pre><code data-trim data-noescape>git@server:~ $ mkdir -p /home/swapnil/project-1.git && cd "$_"</code></pre>
 						
-						Paso 5. Iniciar el repo
+						<p class="text-left">Paso 5. Iniciar el repo</p>
 
-						<pre><code data-trim data-noescape>git init --bare<br>
-						//Initialized empty Git repository in /home/swapnil/project-1.git</code></pre>
+						<pre><code data-trim data-noescape>git init --bare<br>//Initialized empty Git repository in /home/swapnil/project-1.git</code></pre>
 
 					</section>
 
 					<section>
 					
-						Paso 6. Creamos el proyecto en la localmente
+						<p class="text-left">Paso 6. Creamos el proyecto en la localmente</p>
 
-						<pre><code data-trim data-noescape>mkdir -p /home/swapnil/git/project && cd "$_"<br>
-							git init <br>
-							//Initialized empty Git repository in /home/swapnil/git/project</code></pre>
+						<pre><code data-trim data-noescape>mkdir -p /home/swapnil/git/project && cd "$_"<br>git init <br>//Initialized empty Git repository in /home/swapnil/git/project</code></pre>
 
-						Paso 7. Crear y agregar un archivo
+						<p class="text-left">Paso 7. Crear y agregar un archivo</p>
 
-						<pre><code data-trim data-noescape>touch file.php<br>
-						git add .</code></pre>
+						<pre><code data-trim data-noescape>touch file.php<br>git add .</code></pre>
 
 					</section>
 
 					<section>
 
-						Paso 8. Commitear
+						<p class="text-left">Paso 8. Commitear</p>
 
-						<pre><code data-trim data-noescape>git commit -m "message" -a<br>
-						[master e517b10] message<br>
-	 					1 file changed, 1 insertion(+)</code></pre>
+						<pre><code data-trim data-noescape>git commit -m "message" -a<br>[master e517b10] message<br>1 file changed, 1 insertion(+)</code></pre>
 
-	 					Paso 9. Agregamos el origen remoto
+	 					<p class="text-left">Paso 9. Agregamos el origen remoto</p>
 
 	 					<pre><code data-trim data-noescape>git remote add origin ssh://git@remote-server/repo-<wbr< a="">>path-on-server..git</code></pre>
 
@@ -497,7 +488,7 @@
  					
  					<section>
 					
-	 					Paso 10. Ahora ya podemos pushear (y pullear) nuestros cambios.
+	 					<p class="text-left">Paso 10. Ahora ya podemos pushear (y pullear) nuestros cambios.</p>
 
 	 					<pre><code data-trim data-noescape>git push origin master</code></pre>
 
@@ -550,7 +541,7 @@
 						<li><a href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing">Merge vs Rebase</a></li>
 						<li><a href="https://www.linux.com/learn/how-run-your-own-git-server">Run GIT on your server</a></li>
 						<li><a href="https://git-scm.com/book/en/v1/Git-on-the-Server-Getting-Git-on-a-Server">GIT on a server</a></li>
-						<li><a href="https://help.github.com/articles/resolving-a-merge-conflict-on-github/"></a>Resolving a merge conflict on github</li>
+						<li><a href="https://help.github.com/articles/resolving-a-merge-conflict-on-github/">Resolving a merge conflict on github</a></li>
 					</ul>
 					</section>
 
