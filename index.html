@@ -7,7 +7,13 @@
 		<title>reveal.js</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<link rel="stylesheet" href="css/theme/custom.css">
+
+		<!-- league, moon -->
+
+		<!-- documentation https://github.com/hakimel/reveal.js/#auto-sliding -->
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -24,8 +30,556 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				
+				<section>
+					<h2>GIT</h2>
+					<img src="images/git.png">
+				</section>
+
+				<section data-transition="slide-in fade-out">
+					<h2>GIT areas</h2>
+					<section><img src="images/1-1.png"></section>
+					<section><img src="images/1-2.svg"></section>
+					<section><img src="images/1-3.png"></section>
+				</section>
+
+				<section data-transition="zoom">
+					
+					<h2>NOW YOU SEE IT, NOW YOU DON'T<br>
+						<small>(o deshaciendo con GIT)</small>
+					</h2>
+
+					<section>
+						<img src="images/2-1.svg" class="white-border">
+
+						La idea detras de GIT es mantener copias "seguras" de un projecto, para no preocuparnos de romper nuestro código. Con <i>git checkout</i> nos movemos de una copia a otra.
+
+					</section>
+
+					<section>
+						<img src="images/2-2.svg" class="noborder">
+
+						Checkout es una operación de sólo lectura. No provocará ningún daño,
+						pero se puede volver a committear una version anterior, y esto afecta al repositorio.
+
+						Ademas de hacer checkout a una rama, podemos hacerlo a un commit específico:
+
+						<pre><code data-trim data-noescape>git checkout commit</code></pre>
+
+					</section>
+
+					<section>
+						<img src="images/2-3.svg" class="noborder">
+
+						<p>y también a una versión anterior de un archivo solo</p>
+
+						<pre><code data-trim data-noescape>git checkout commit file.php</code></pre>
+
+						<p>o la versión sin modificar de un archivo</p>
+							
+						<pre><code data-trim data-noescape>$ git checkout -- file.py</code></pre>
+
+					</section>
+
+					<section>
+						<h3>REVERT A COMMIT</h3>
+						<pre><code data-trim data-noescape>$ git revert 1776f5</code></pre>
+						<img src="images/2-4.svg" class="noborder">
+						<p><i>Revert</i> crea un nuevo commit que deshace cambios de un commit previo</p>
+					</section>
+
+					<section>
+						<p>Es importante saber que <i>revert</i> revierte UN solo commit. No a un estado anterior del proyecto quitando todos los commits desde entonces.
+						En GIT, este proceso se conoce como <i>reset</i>.</p>
+					</section>
+
+					<section>
+						<img src="images/2-5.svg" class="noborder">
+					</section>
+
+					<section>
+
+						<p><i>Revert</i> es más seguro, ya que no borra información, sino que genera un nuevo commit deshaciendo el anterior.</p>
+						<p><i>Reset</i> por el contrario, tiene el potencial de perder información. Debe usarse localmente porque cambia la historia de git</p>
+
+					</section>
+
+					<section>
+						<img src="images/2-6.jpg" class="noborder">
+					</section>
+
+				</section>
+
+				<section>
+					<h2>Reset</h2>
+
+					<section>
+						<img src="images/3-1.svg" class="noborder">
+						<small>Los tres componentes de un repositorio GIT</small>
+						<aside class="notes">It helps to think about each command in terms of their effect on the three main components of a Git repository: the working directory, the staged snapshot, and the commit history.</aside>
+					</section>
+
+					<section>
+						<h3>Reset en nivel "commit"</h3>
+						<pre><code data-trim data-noescape>$ git reset HEAD~2</code></pre>
+
+						<p>Vuelve 2 commits hacia atras. Esos dos commits, ahora estan sin referencia y serán borrados por GIT en la proxima recoleccion de basura.</p>
+
+					</section>
+
+					<section class="text-left">
+						<p><i>Reset</i> tambien puede modificar el area de staging y el directorio de trabajo, usando estos parámetros:</p>
+
+						<blockquote>--soft – Staging y el directorio de trabajo no se alteran.</blockquote>
+						<blockquote>--mixed – (default) Staging se actualiza al commit especificado, pero el directorio de trabajo no se afecta.</blockquote>
+						<blockquote>--hard – Staging y el directorio de trabajo se modifican al commit especificado.</blockquote>
+					</section>
+
+					<section>
+						<img src="images/3-2.svg" class="noborder">
+					</section>
+
+					<section>
+						<p>usos más comunes:</p>
+
+						<pre><code data-trim data-noescape>$ git reset --mixed HEAD</code></pre>
+						<p>Afecta al area de staging, pero mantiene los cambios en el directorio de trabajo</p>
+
+						<pre><code data-trim data-noescape>$ git reset --hard HEAD</code></pre>
+						<p>Borra todos lo cambios, de staging y el directorio de trabajo</p>
+
+						<small>Caveat emptor: usar con cuidado cuando se trabaja en ramas publicas.</small>
+					</section>
+
+					<section>
+						<h4>Reset, revert y checkout</h4>
+						<table style="font-size:24px;"> <thead> <tr> <th>Comando</th> <th>Alcance</th> <th>Uso más comun</th> </tr> </thead> <thead> <tr> <td><code>git reset</code></td> <td>Commit-level</td> <td>Descarta commits en una rama privada o borra cambios sin comitear</td> </tr> <tr> <td><code>git reset</code></td> <td>File-level</td> <td>Quita un archivo de staging</td> </tr> <tr> <td><code>git checkout</code></td> <td>Commit-level</td> <td>Cambia de rama o inspecciona commits</td> </tr> <tr> <td><code>git checkout</code></td> <td>File-level</td> <td>Descarta cambios en el directorio de trabajo</td> </tr> <tr> <td><code>git revert</code></td> <td>Commit-level</td> <td>Deshace commits en una rama pública</td> </tr> <tr> <td><code>git revert</code></td> <td>File-level</td> <td>No tiene aplicación</td> </tr> </thead> </table>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>rewriting history</h2>
+
+					<section>
+						<img src="images/4-1.jpg">
+					</section>
+
+					<section>
+						git ofrece herramientas para modificar la historia, pero esto puede ser peligroso.
+
+						<pre><code data-trim data-noescape>$ git commit --amend</code></pre>
+						sirve para editar el ultimo commit, y debe hacerse siempre en un commit no publico.
+
+						<pre><code data-trim data-noescape>$ git rebase</code></pre>
+
+						Sirve para actualizar una rama con los cambios de otra.
+
+					</section>
+
+					<section>
+						<img src="images/4-2.svg">
+					</section>
+
+					<section>
+						<img src="images/4-3.svg">
+					</section>
+
+					<section>
+						<h3>Rebase interactivo</h3>
+
+						<pre><code data-trim data-noescape>$ git rebase -i <i>base</i> </code></pre>
+
+						Inicia una sesión interactiva de rebasing<br>
+						Nos da la oportunidad de limpiar y ordenar la historia.<br>
+						Permite quitar, dividir y alterar commits existentes.
+
+						<blockquote>It’s like git commit --amend on steroids.</blockquote>
+
+						<!-- merge vs rebase
+
+						The major benefit of rebasing is that you get a much cleaner project history. -->
+
+					</section>
+					
+					<section>
+						<h3>The Golden Rule of Rebasing</h3>
+
+						<img src="images/4-5.jpg" width="400">
+
+						<blockquote>NUNCA usar en ramas públicas</blockquote>
+
+					</section>
+
+					<section>
+						<img src="images/4-4.svg">
+					</section>
+
+				</section>
+
+
+				
+				<section>
+					<h2>Fast Forwarding</h2>
+
+					<section>
+						<pre><code data-trim data-noescape>git merge --no-ff</code></pre>
+
+						<p class="text-left">Ocurre cuando se hace git pull sin tener ningun cambio local.<br>
+							Git simplifica las cosas avanzando el puntero, ya que no hay ningún otro trabajo divergente a fusionar.</p>
+
+						<blockquote>Con <i>--no-ff</i> se genera un commit adicional enfatizando el merge</blockquote>
+
+						<aside class="notes">However, occasionally you want to prevent this behavior from happening, typically because you want to maintain a specific branch topology (e.g. you're merging in a topic branch and you want to ensure it looks that way when reading history). In order to do that, you can pass the --no-ff flag and git merge will always construct a merge instead of fast-forwarding. <aside>
+					</section>
+
+					<section>
+						<img src="images/5-1.png">
+					</section>
+
+				</section>
+
+				<!--
+				<section>Merging vs. Rebasing
+
+					rebase
+					sirve para aplicar una serie de commits a otro branch
+
+					regla: no hacer rebase de commits que ya fueron pusheados a un repositorio publico. Solo en ramas locales. Why? rebase reescribe la historia, esto traeria problemas a otras personas trabajando en el mismo proyecto.
+
+
+				</section>
+			    -->
+
+				<section>
+					<h2>cherry pick</h2>
+					<p class="text-left">Genera un nuevo commit con commits elegidos de otra rama
+					<br>
+					Paso 1.</p>
+					
+					<pre><code data-trim data-noescape>git checkout rama-a-la-que-queremos-agregar-commits</code></pre>
+
+					<p class="text-left">Paso 2.</p>
+
+					<pre><code data-trim data-noescape>git cherry-pick c90fd66</code></pre>
+				</section>
+
+				<section>
+					<h2>Formateando y Filtrando git log</h2>
+
+					<section>
+
+						git log is ugly :(
+
+						<pre><code data-trim data-noescape>
+							commit 3f1c1a58f9fb660a1446eea99528543e35fde1de
+							Author: kilinkis <juanofx@gmail.com>
+							Date:   Fri Feb 10 17:26:24 2017 -0300
+
+							    Fix margin iOS and Android landing pages
+
+							commit 50127ce2ec77b1013773d6f074a6e95c509115ce
+							Author: kilinkis <juanofx@gmail.com>
+							Date:   Fri Feb 10 17:14:27 2017 -0300
+
+							    Fix: Drupal landing page margin
+
+							commit bef189d53c0e83c4b9e1d855411d0ad974159ab3
+							Author: kilinkis <juanofx@gmail.com>
+							Date:   Fri Feb 10 16:53:18 2017 -0300
+
+							    Fix margin in landing page for Internal Solutions
+						</code></pre>
+
+					</section>
+
+						
+
+					<section>
+						<pre><code data-trim data-noescape>git log --oneline</code></pre>
+
+						<i>--oneline</i> imprime un commit por linea
+
+						<pre><code data-trim data-noescape>
+						3f1c1a5 Fix margin iOS and Android landing pages
+						50127ce Fix: Drupal landing page margin
+						bef189d Fix margin in landing page for Internal Solutions
+						96ab0fa Plugin added: Redirect unattached images
+						734ce00 Merge remote-tracking branch 'origin/fs-19' into fs-19
+						dceba5f Fix: landing page Internal Solutions
+						68dec55 Merge branch 'develop' into fs-19
+						</code></pre>
+
+					</section>
+
+					<section>	
+						<pre><code data-trim data-noescape>git shortlog</code></pre>
+
+						<i>shortlog</i> lista los mensajes de los commits
+
+						<pre><code data-trim data-noescape>
+							Juan Incaurgarat (33):
+						      Initial work on custom landing page posts with Advanced Custom Fields
+						      Merge branch 'custom-landing-page-posts' into feature-sprint-4
+						      Merge pull request #5 from mobomo/custom-landing-page-posts
+						      Hotfix for custom landing page template
+						      Merge pull request #6 from mobomo/case-nalc
+						</code></pre>
+
+					</section>
+						
+					<section>
+						<pre><code data-trim data-noescape>git log --graph</code></pre>
+
+						Grafica actividad en el repositorio
+
+						<pre><code data-trim data-noescape>
+						| * |   commit cbc02e2bf96971fc359569f089f525d734fcac94
+						| | |\ \  Merge: 6c950ef c45068d
+						| | | |/  Author: Juan Manuel Incaurgarat <juanofx@gmail.com>
+						| | | |   Date:   Fri Dec 23 17:12:25 2016 -0300
+						| | | |
+						| | | |       Merge pull request #62 from kilinkis/feature-sprint-14
+						| | | |
+						| | | |       Feature sprint 14
+						| | | |
+						| | | * commit c45068dd87baf37fd28622efbc952d94bb86679e
+						| | | | Author: kilinkis <juanofx@gmail.com>
+						| | | | Date:   Fri Dec 23 13:50:29 2016 -0300
+						| | | |
+						| | | |     Fix cropped form in small devices
+						| | | |
+						| | | |     https://intridea.atlassian.net/browse/KILINKIS-363
+						| | | |
+						| | * |   commit 6c950ef2a5b53f17293abc54b50585ae381bfa83
+						| | |\ \  Merge: ca6b550 b5cf649
+						</code></pre>
+
+					</section>
+					
+					<section>
+
+						<pre><code data-trim data-noescape>git log --pretty=format:"%cn commited %h on %cd"</code></pre>
+
+						Dando formato al git log
+
+						<pre><code data-trim data-noescape>
+						kilinkis commited 3f1c1a5 on Fri Feb 10 17:26:24 2017 -0300
+						kilinkis commited 50127ce on Fri Feb 10 17:14:27 2017 -0300
+						kilinkis commited bef189d on Fri Feb 10 16:53:18 2017 -0300
+						kilinkis commited 96ab0fa on Fri Feb 10 14:01:03 2017 -0300</code></pre>
+
+						Filtrando por fechas
+
+						<pre><code data-trim data-noescape>git log --after="2016-12-30" --before="yesterday"</code></pre>
+
+						<aside class="notes">bueno para un alias (global o en .gitconfig)
+							    apply-gitignore = !git ls-files -ci --exclude-standard -z | xargs -0r git rm --cached
+						</aside>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>Limpiando el .gitignore</h2>
+
+					<section>
+						
+						<h4>Ignorar archivos que ya fueron commiteados al repo</h4>
+
+						<p class="text-left">
+						Paso 1. Aplicar al .gitignore los patrones de los archivos que queremos ignorar.
+						<br>
+						Paso 2. Commitear (o stash) cualquier cambio local.
+						<br>
+						Paso 3:</p>
+
+						<pre><code data-trim data-noescape>
+						// git rm --cached /path/to.file
+						$ git rm -r --cached .
+						$ git add .
+						$ git commit -m "Clean up ignored files"</code></pre>
+					</section>
+
+					<section>
+						<h4>Quitar archivos de un commit</h4>
+
+						<pre><code data-trim data-noescape>git reset --soft HEAD^ // o git reset --soft HEAD~1</code></pre>
+
+						<p class="text-left">Resetear el archivo no deseado para dejarlo fuera del commit:</p> 
+
+						<pre><code data-trim data-noescape>
+						git reset HEAD path/to/unwanted_file</code></pre>
+
+						<p class="text-left">Commitear (incluso se puede usar el mismo mensaje):</p> 
+
+						<pre><code data-trim data-noescape>git commit -c ORIG_HEAD</code></pre>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>Resolver conflictos online</h2>
+					<section>
+						Si en un Pull Request hay un conflicto:
+						<img src="images/9-1.png">
+						<img src="images/9-2.png">
+					</section>
+					<section>
+						<img src="images/9-3.png">
+						<img src="images/9-4.png">
+					</section>
+				</section>
+
+				<section>
+					<h2>HOSTING YOUR GIT REPOSITORIES</h2>
+
+					<section>
+
+						Paso 1. Instalar GIT en ambas máquinas:
+
+						<pre><code data-trim data-noescape>sudo apt-get install git-core</code></pre>
+
+						Paso 2. Agregar usuario y generar llaves SSH (privada y pública).
+
+						<pre><code data-trim data-noescape>sudo useradd git<br>
+						passwd git<br>
+						ssh-keygen -t rsa</code></pre>
+						
+						Paso 3.
+						Now you have to copy these keys to the server so that the two machines can talk to each other
+
+						<pre><code data-trim data-noescape>cat ~/.ssh/id_rsa.pub | ssh git@remote-server "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"</code></pre>
+
+					</section>
+
+					<section>
+
+						Paso 4. En la maquina remota (ssh) y crear un directorio para el projecto de git
+
+						<pre><code data-trim data-noescape>git@server:~ $ mkdir -p /home/swapnil/project-1.git && cd "$_"</code></pre>
+						
+						Paso 5. Iniciar el repo
+
+						<pre><code data-trim data-noescape>git init --bare<br>
+						//Initialized empty Git repository in /home/swapnil/project-1.git</code></pre>
+
+					</section>
+
+					<section>
+					
+						Paso 6. Creamos el proyecto en la localmente
+
+						<pre><code data-trim data-noescape>mkdir -p /home/swapnil/git/project && cd "$_"<br>
+							git init <br>
+							//Initialized empty Git repository in /home/swapnil/git/project</code></pre>
+
+						Paso 7. Crear y agregar un archivo
+
+						<pre><code data-trim data-noescape>touch file.php<br>
+						git add .</code></pre>
+
+					</section>
+
+					<section>
+
+						Paso 8. Commitear
+
+						<pre><code data-trim data-noescape>git commit -m "message" -a<br>
+						[master e517b10] message<br>
+	 					1 file changed, 1 insertion(+)</code></pre>
+
+	 					Paso 9. Agregamos el origen remoto
+
+	 					<pre><code data-trim data-noescape>git remote add origin ssh://git@remote-server/repo-<wbr< a="">>path-on-server..git</code></pre>
+
+ 					</section>
+ 					
+ 					<section>
+					
+	 					Paso 10. Ahora ya podemos pushear (y pullear) nuestros cambios.
+
+	 					<pre><code data-trim data-noescape>git push origin master</code></pre>
+
+ 					</section>
+
+ 					<section>
+
+	 					And Presto!<br>
+
+	 					Otros colaboradores pueden clonar el proyecto
+
+	 					<pre><code data-trim data-noescape>git clone git@remote-server:/home/swapnil/project.git</code></pre>
+
+	 					<aside class="notes">gitlab</aside>
+
+ 					</section>
+
+				</section>
+
+				<section>
+					<h2>Conclusiones:</h2>
+					<p>GIT es una herramienta muy versatil que permite llegar al mismo resultado de distintas maneras. No tiene un unico modo de uso.</p>
+
+					<p>Distintos equipos lo usan de distintas formas, pero es solamente "how it's done here".
+						El GIT workflow esta abierto a mejoras, modificaciones y colaboraciones.</p>
+				</section>
+
+				<section data-background-color="#fff">
+
+					<h2 class="violet">Preguntas?</h2>
+
+					<img class="noborder noshadow" src="images/12-1.png" width="400">
+
+				</section>
+
+				<section>
+
+					<h2>Fuentes, lecturas y ejercitación</h2>
+
+					<section><img src="images/13-1.svg"></section>
+
+					<section>
+						<ul>
+						<li><a href="https://www.atlassian.com/git">atlassian.com/git</a></li>
+						<li><a href="https://marklodato.github.io/visual-git-guide/index-en.html#basic-usage">Visual guide to GIT</a></li>
+						<li><a href="https://git-scm.com/docs/git-rm">GIT official documentation</a></li>
+						<li><a href="https://www.git-tower.com/learn/git/">GIT tower</a></li>
+						<li><a href="https://code.tutsplus.com/tutorials/rewriting-history-with-git-rebase--cms-23191">Rewrite history with rebase</a></li>
+						<li><a href="https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting">Reset vs Checkout vs Reverting</a></li>
+						<li><a href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing">Merge vs Rebase</a></li>
+						<li><a href="https://www.linux.com/learn/how-run-your-own-git-server">Run GIT on your server</a></li>
+						<li><a href="https://git-scm.com/book/en/v1/Git-on-the-Server-Getting-Git-on-a-Server">GIT on a server</a></li>
+						<li><a href="https://help.github.com/articles/resolving-a-merge-conflict-on-github/"></a>Resolving a merge conflict on github</li>
+					</ul>
+					</section>
+
+					<section>
+						<ul>
+						<li><a href="https://www.atlassian.com/git/tutorials/git-hooks">Hooks</a></li>
+						<li><a href="http://nvie.com/posts/a-successful-git-branching-model/">A successful git branching model</a></li>
+						<li><a href="https://gist.github.com/hofmannsven/6814451">GIT cheatsheet</a></li>
+						<li><a href="https://github.com/github/gitignore">.gitignore templates</a></li>
+						<li><a href="http://ndpsoftware.com/git-cheatsheet.html">GIT interactive cheatsheet</a></li>
+						<li><a href="https://www.atlassian.com/git/tutorials/comparing-workflows">GIT workflows</a></li>
+					</ul>
+					</section>
+
+					<section>
+						<ul>
+						<li>
+							<a href="https://githowto.com">git how to</a>
+							<li><a href="http://gitimmersion.com">GIT immersion</a></li>
+						</li>
+					</ul>
+					</section>
+				</section>
+
+				<section data-background-color="#fff">
+					<h3 class="violet">Thank you!</h3>
+					<img class="noborder noshadow" src="images/happycat.gif">
+				</section>
+
 			</div>
 		</div>
 
