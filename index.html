@@ -38,9 +38,12 @@
 
 				<section data-transition="slide-in fade-out">
 					<h2>GIT areas</h2>
-					<section><img src="images/1-1.png"></section>
+					<section><img src="images/1-1.png">
+						<aside class="notes">ambientes <br><br>staging: banco de cambios que van a ser entregados</aside>
+					</section>
 					<section><img src="images/1-2.svg"></section>
 					<section><img src="images/1-3.png"></section>
+
 				</section>
 
 				<section data-transition="zoom">
@@ -51,7 +54,7 @@
 						</h2>
 						<img src="images/2-1.svg" class="white-border">
 
-						La idea detras de GIT es mantener copias "seguras" de un projecto, para no preocuparnos de romper nuestro código. Con <i>git checkout</i> nos movemos de una copia a otra.
+						La idea detras de GIT es mantener copias "seguras" de un proyecto, para no preocuparnos de romper nuestro código. <br>Con <i>git checkout</i> nos movemos de una copia a otra.
 
 					</section>
 
@@ -454,21 +457,21 @@
 
 					<section>
 
-						<p class="text-left">Paso 4. En la maquina remota (ssh) y crear un directorio para el projecto de git</p>
+						<p class="text-left">Paso 4. En la maquina remota (ssh) y crear un directorio para el proyecto de git</p>
 
-						<pre><code data-trim data-noescape>git@server:~ $ mkdir -p /home/swapnil/project-1.git && cd "$_"</code></pre>
+						<pre><code data-trim data-noescape>git@server:~ $ mkdir -p /home/username/project-1.git && cd "$_"</code></pre>
 						
 						<p class="text-left">Paso 5. Iniciar el repo</p>
 
-						<pre><code data-trim data-noescape>git init --bare<br>//Initialized empty Git repository in /home/swapnil/project-1.git</code></pre>
+						<pre><code data-trim data-noescape>git@server:~ $ git init --bare<br>//Initialized empty Git repository in /home/username/project-1.git</code></pre>
 
 					</section>
 
 					<section>
 					
-						<p class="text-left">Paso 6. Creamos el proyecto en la localmente</p>
+						<p class="text-left">Paso 6. Creamos el proyecto localmente</p>
 
-						<pre><code data-trim data-noescape>mkdir -p /home/swapnil/git/project && cd "$_"<br>git init <br>//Initialized empty Git repository in /home/swapnil/git/project</code></pre>
+						<pre><code data-trim data-noescape>mkdir -p /home/username/git/project && cd "$_"<br>git init <br>//Initialized empty Git repository in /home/username/git/project</code></pre>
 
 						<p class="text-left">Paso 7. Crear y agregar un archivo</p>
 
@@ -502,7 +505,7 @@
 
 	 					Otros colaboradores pueden clonar el proyecto
 
-	 					<pre><code data-trim data-noescape>git clone git@remote-server:/home/swapnil/project.git</code></pre>
+	 					<pre><code data-trim data-noescape>git clone git@remote-server:/home/username/project.git</code></pre>
 
 	 					<aside class="notes">gitlab</aside>
 
@@ -512,7 +515,7 @@
 
 				<section>
 					<h2>Conclusiones:</h2>
-					<p>GIT es una herramienta muy versatil que permite llegar al mismo resultado de distintas maneras. No tiene un unico modo de uso.</p>
+					<p>GIT es una herramienta muy versatil que permite trabajar de forma distruibuida en la que cada desarrollador tiene una copia del proyecto. Se puede llegar al mismo resultado de distintas maneras. No tiene un unico modo de uso.</p>
 
 					<p>Distintos equipos lo usan de distintas formas, pero es solamente "how it's done here".
 						El GIT workflow esta abierto a mejoras, modificaciones y colaboraciones.</p>
