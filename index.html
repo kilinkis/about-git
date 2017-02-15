@@ -137,6 +137,12 @@
 						<blockquote>--soft – Staging y el directorio de trabajo no se alteran.</blockquote>
 						<blockquote>--mixed – (default) Staging se actualiza al commit especificado, pero el directorio de trabajo no se afecta.</blockquote>
 						<blockquote>--hard – Staging y el directorio de trabajo se modifican al commit especificado.</blockquote>
+
+						<aside class="notes">When employed with --soft, moves HEAD, and only the HEAD.
+This differ from commit --amend as:
+
+it doesn't create a new commit.
+it can actually move HEAD to any commit (as commit --amend is only about not moving HEAD, while allowing to redo the current commit)</aside>
 					</section>
 
 					<section>
