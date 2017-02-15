@@ -34,6 +34,8 @@
 				<section>
 					<h2>GIT</h2>
 					<img src="images/git.png">
+					<aside class="notes">La idea de esta charla en mostrar algunos usos comunes de git<br>
+						saliendo de los usos basicos y para no ser el muchacho de la historieta</aside>
 				</section>
 
 				<section data-transition="slide-in fade-out">
@@ -331,9 +333,9 @@ it can actually move HEAD to any commit (as commit --amend is only about not mov
 							Juan Incaurgarat (33):
 						      Initial work on custom landing page posts with Advanced Custom Fields
 						      Merge branch 'custom-landing-page-posts' into feature-sprint-4
-						      Merge pull request #5 from mobomo/custom-landing-page-posts
+						      Merge pull request #5 from kilinkis/custom-landing-page-posts
 						      Hotfix for custom landing page template
-						      Merge pull request #6 from mobomo/case-nalc
+						      Merge pull request #6 from kilinkis/case-nalc
 						</code></pre>
 
 					</section>
@@ -424,6 +426,14 @@ it can actually move HEAD to any commit (as commit --amend is only about not mov
 						<p class="text-left">Commitear (incluso se puede usar el mismo mensaje):</p> 
 
 						<pre><code data-trim data-noescape>git commit -c ORIG_HEAD</code></pre>
+
+						<aside class="notes">git reset --soft HEAD^ deshace un commit<br>
+						$ git commit -m "Something terribly misguided"              (1)<br>
+						$ git reset HEAD~                                           (2)<br>
+						<< edit files as necessary >>                               (3)<br>
+						$ git add ...                                               (4)<br>
+						$ git commit -c ORIG_HEAD                                   (5)
+						</aside>
 					</section>
 
 				</section>
@@ -463,7 +473,7 @@ it can actually move HEAD to any commit (as commit --amend is only about not mov
 
 					<section>
 
-						<p class="text-left">Paso 4. En la maquina remota (ssh) y crear un directorio para el proyecto de git</p>
+						<p class="text-left">Paso 4. Crear un directorio para el proyecto de git en la maquina remota</p>
 
 						<pre><code data-trim data-noescape>git@server:~ $ mkdir -p /home/username/project-1.git && cd "$_"</code></pre>
 						
